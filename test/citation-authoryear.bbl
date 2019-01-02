@@ -7,31 +7,32 @@
 \providecommand{\doi}[1]{\href{https://doi.org/#1}{#1}}
 
 \bibitem[{刘彻东(1998)}]{lcd}
-刘彻东, 1998.
+刘彻东.
 \newblock 中国的青年刊物:个性特色为本仁\allowbreak[J].
-\newblock 中国出版\penalty0 (5):\penalty0 38-39.
+\newblock 中国出版, 1998\penalty0 (5):\penalty0 38-39.
 
 \bibitem[{裴丽生(1981)}]{pls}
-裴丽生, 1981.
+裴丽生.
 \newblock
   在中国科协学术期刊编辑工作经验交流会上的讲话\allowbreak[C]//\allowbreak
 中国科学技术协会.
 \newblock 中国科协学术期刊编辑工作经验交流会资料选.
-\newblock 北京: 中国科学技术协会学会工作部: 2-10.
+\newblock 北京: 中国科学技术协会学会工作部, 1981: 2-10.
 
 \bibitem[{张忠智(1997)}]{zzz}
-张忠智, 1997.
+张忠智.
 \newblock
   科技书刊的总编(主编)的角色要求\allowbreak[C]//\allowbreak
 中国科学技术期刊编辑学会.
 \newblock
   中国科学技术期刊编辑学会建会十周年学术研讨会论文汇编.
-\newblock 北京: 中国科学技术期刊编辑学会学术委员会: 33-34.
+\newblock 北京: 中国科学技术期刊编辑学会学术委员会, 1997:
+  33-34.
 
 \bibitem[{中国社会科学院语言研究所词典编辑室(1996)}]{zgkxyyyyjscdbjs}
-中国社会科学院语言研究所词典编辑室, 1996.
+中国社会科学院语言研究所词典编辑室.
 \newblock 现代汉语词典\allowbreak[M].
 \newblock 修订本.
-\newblock 北京: 商务印书馆.
+\newblock 北京: 商务印书馆, 1996.
 
 \end{thebibliography}

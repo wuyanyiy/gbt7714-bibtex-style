@@ -137,7 +137,13 @@ FUNCTION {bbl.et.al}
 }
 
 FUNCTION {citation.et.al}
-{ bbl.et.al }
+{ entry.lang lang.zh =
+    { "等" }
+    { "{\bibetal}" }
+  if$
+}
+
+FUNCTION {citation.and} { "{\biband}" }
 
 FUNCTION {bbl.colon} { ": " }
 
@@ -1621,17 +1627,30 @@ FUNCTION {chop.word}
   if$
 }
 
+FUNCTION {format.lab.name}
+{ "{vv~}{ll}{, jj}{, ff}" format.name$
+  duplicate$ get.str.lang 'name.lang :=
+  name.lang lang.zh = name.lang lang.ja = or
+    { #1 "{ll}{ff}" format.name$ }
+    { #1 "{vv~}{ll}" format.name$ }
+  if$
+}
+
 FUNCTION {format.lab.names}
 { 's :=
-  s #1 "{vv~}{ll}{, jj}{, ff}" format.name$ 't :=
-  t get.str.lang 'name.lang :=
-  name.lang lang.en =
-    { t #1 "{vv~}{ll}" format.name$}
-    { t #1 "{ll}{ff}" format.name$}
-  if$
-  s num.names$ #1 >
-    { bbl.space * citation.et.al * }
-    'skip$
+  s #1 format.lab.name
+  s num.names$ #2 = name.lang lang.en = name.lang lang.ru = or and
+    { s #2 format.lab.name 't :=
+      t "others" =
+        { bbl.space * citation.et.al * }
+        { " " * citation.and * " " * t * }
+      if$
+    }
+    { s num.names$ #1 >
+        { bbl.space * citation.et.al * }
+        'skip$
+      if$
+    }
   if$
 }
 

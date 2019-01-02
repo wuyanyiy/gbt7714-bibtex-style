@@ -137,7 +137,13 @@ FUNCTION {bbl.et.al}
 }
 
 FUNCTION {citation.et.al}
-{ bbl.et.al }
+{ entry.lang lang.zh =
+    { "等" }
+    { "{\bibetal}" }
+  if$
+}
+
+FUNCTION {citation.and} { "{\biband}" }
 
 FUNCTION {bbl.colon} { ": " }
 
@@ -1301,11 +1307,6 @@ FUNCTION {monograph}
     }
   if$
   output
-  period.between.author.year
-    'new.sentence
-    'skip$
-  if$
-  format.year "year" output.check
   new.block
   format.series.vol.num.title "title" output.check
   "M" set.entry.mark
@@ -1316,6 +1317,7 @@ FUNCTION {monograph}
   format.edition output
   new.block
   format.address.publisher output
+  format.year "year" output.check
   format.pages bbl.colon output.after
   format.urldate "" output.after
   format.url output
@@ -1329,11 +1331,6 @@ FUNCTION {incollection}
 { output.bibitem
   format.authors output
   author format.key output
-  period.between.author.year
-    'new.sentence
-    'skip$
-  if$
-  format.year "year" output.check
   new.block
   format.title "title" output.check
   "M" set.entry.mark
@@ -1348,6 +1345,7 @@ FUNCTION {incollection}
   format.edition output
   new.block
   format.address.publisher output
+  format.year "year" output.check
   format.pages bbl.colon output.after
   format.urldate "" output.after
   format.url output
@@ -1361,11 +1359,6 @@ FUNCTION {periodical}
 { output.bibitem
   format.authors output
   author format.key output
-  period.between.author.year
-    'new.sentence
-    'skip$
-  if$
-  format.year "year" output.check
   new.block
   format.title "title" output.check
   "J" set.entry.mark
@@ -1374,6 +1367,7 @@ FUNCTION {periodical}
   format.periodical.year.volume.number output
   new.block
   format.address.publisher output
+  format.date "year" output.check
   format.urldate "" output.after
   format.url output
   format.doi output
@@ -1386,17 +1380,13 @@ FUNCTION {article}
 { output.bibitem
   format.authors output
   author format.key output
-  period.between.author.year
-    'new.sentence
-    'skip$
-  if$
-  format.year "year" output.check
   new.block
   format.title "title" output.check
   "J" set.entry.mark
   format.mark "" output.after
   new.block
   format.journal "journal" output.check
+  format.date "year" output.check
   format.journal.volume output
   format.journal.number "" output.after
   format.journal.pages "" output.after
@@ -1412,11 +1402,6 @@ FUNCTION {patent}
 { output.bibitem
   format.authors output
   author format.key output
-  period.between.author.year
-    'new.sentence
-    'skip$
-  if$
-  format.year "year" output.check
   new.block
   format.title "title" output.check
   "P" set.entry.mark
@@ -1437,17 +1422,16 @@ FUNCTION {electronic}
   output.bibitem
   format.authors output
   author format.key output
-  period.between.author.year
-    'new.sentence
-    'skip$
-  if$
-  format.year "year" output.check
   new.block
   format.series.vol.num.title "title" output.check
   "EB" set.entry.mark
   format.mark "" output.after
   new.block
   format.address.publisher output
+  date empty$
+    { format.date output }
+    'skip$
+  if$
   format.pages bbl.colon output.after
   format.editdate "" output.after
   format.urldate "" output.after
@@ -1643,17 +1627,30 @@ FUNCTION {chop.word}
   if$
 }
 
+FUNCTION {format.lab.name}
+{ "{vv~}{ll}{, jj}{, ff}" format.name$
+  duplicate$ get.str.lang 'name.lang :=
+  name.lang lang.zh = name.lang lang.ja = or
+    { #1 "{ll}{ff}" format.name$ }
+    { #1 "{vv~}{ll}" format.name$ }
+  if$
+}
+
 FUNCTION {format.lab.names}
 { 's :=
-  s #1 "{vv~}{ll}{, jj}{, ff}" format.name$ 't :=
-  t get.str.lang 'name.lang :=
-  name.lang lang.en =
-    { t #1 "{vv~}{ll}" format.name$}
-    { t #1 "{ll}{ff}" format.name$}
-  if$
-  s num.names$ #1 >
-    { bbl.space * citation.et.al * }
-    'skip$
+  s #1 format.lab.name
+  s num.names$ #2 = name.lang lang.en = name.lang lang.ru = or and
+    { s #2 format.lab.name 't :=
+      t "others" =
+        { bbl.space * citation.et.al * }
+        { " " * citation.and * " " * t * }
+      if$
+    }
+    { s num.names$ #1 >
+        { bbl.space * citation.et.al * }
+        'skip$
+      if$
+    }
   if$
 }
 

@@ -1,12 +1,18 @@
 \documentclass{ctexart}
 
 % \usepackage{natbib}
-\usepackage{gbt7714}
+\usepackage[authoryear]{gbt7714}
+\newcommand\bibetal{等}
+\newcommand\biband{和}
 
 
 \begin{document}
 
-\nocite{*}
+\citet{test1} \par
+\citep{test1} \par
+\citep{test2} \par
+\cite{betts2005aging} \par
+\cite{bravo1990comparative} \par
 
 % \bibliographystyle{plainnat}
 \bibliography{test}

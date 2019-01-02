@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{4}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{#1}
 \expandafter\ifx\csname urlstyle\endcsname\relax\relax\else
@@ -6,8 +6,28 @@
 \providecommand{\href}[2]{\url{#2}}
 \providecommand{\doi}[1]{\href{https://doi.org/#1}{#1}}
 
-\bibitem[{Author(2014)}]{Gu2014Weighted}
-AUTHOR.
+\bibitem[{Betts {\bibetal}(2005)Betts, Taylor, Sekuler, and
+  Bennett}]{betts2005aging}
+BETTS~L~R, TAYLOR~C~P, SEKULER~A~B, et~al.
+\newblock Aging reduces center-surround antagonism in visual motion
+  processing\allowbreak[J].
+\newblock Neuron, 2005, 45\penalty0 (3):\penalty0 361-366.
+
+\bibitem[{Bravo {\bibetal}(1990)Bravo, Olavarria, and
+  Torrealba}]{bravo1990comparative}
+BRAVO~H, OLAVARRIA~J, TORREALBA~F.
+\newblock Comparative study of visual inter and intrahemispheric
+  cortico-cortical connections in five native chilean rodents\allowbreak[J].
+\newblock Anatomy and embryology, 1990, 181\penalty0 (1):\penalty0 67-73.
+
+\bibitem[{Michael {\bibetal}(2014)Michael, Foo, and Bar}]{test1}
+MICHAEL, FOO, BAR.
+\newblock Title\allowbreak[C]//\allowbreak
+Series: Booktitle.
+\newblock Address: Publisher, 2014: 2862-2869.
+
+\bibitem[{Simon {\biband} Feenberg(2014)Simon and Feenberg}]{test2}
+SIMON, FEENBERG.
 \newblock Title\allowbreak[C]//\allowbreak
 Series: Booktitle.
 \newblock Address: Publisher, 2014: 2862-2869.
