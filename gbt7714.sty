@@ -38,20 +38,22 @@
   \PassOptionsToPackage{sort&compress}{natbib}
 \fi
 \RequirePackage{natbib}
-\RequirePackage{etoolbox}
+\RequirePackage{ctexhook}
+\RequirePackage{ctexpatch}
 \RequirePackage{url}
 \newcommand\bibstyle@super{\bibpunct{[}{]}{,}{s}{,}{\textsuperscript{,}}}
 \newcommand\bibstyle@numbers{\bibpunct{[}{]}{,}{n}{,}{,}}
 \newcommand\bibstyle@authoryear{\bibpunct{(}{)}{;}{a}{,}{,}}
+\newcommand\gbt@strifeq{\csname str_if_eq_x:nnTF\endcsname}
 \newcommand\gbtbibstyle[1]{%
-  \ifstrequal{#1}{numerical}{%
+  \gbt@strifeq{#1}{numerical}{%
     \if@gbt@mmxv
       \bibliographystyle{gbt7714-unsrt}%
     \else
       \bibliographystyle{gbt7714-2005-unsrt}%
     \fi
   }{%
-    \ifstrequal{#1}{authoryear}{%
+    \gbt@strifeq{#1}{authoryear}{%
       \if@gbt@mmxv
         \bibliographystyle{gbt7714-plain}%
       \else
@@ -75,10 +77,8 @@
   \citestyle{authoryear}
   \gbtbibstyle{authoryear}%
 \fi
-\newcommand\gbt@patchfailure[1]{%
-  \PackageError{gbt7714}{Failed to patch command \protect#1}{}%
-}
-\patchcmd{\NAT@citexnum}{%
+\newcommand\gbt@patchcmd{\csname ctex_patch_cmd:Nnn\endcsname}
+\gbt@patchcmd{\NAT@citexnum}{%
   \@ifnum{\NAT@ctype=\z@}{%
     \if*#2*\else\NAT@cmt#2\fi
   }{}%
@@ -88,22 +88,22 @@
   \@ifnum{\NAT@ctype=\z@}{%
     \if*#2*\else\textsuperscript{#2}\fi
   }{}%
-}{}{\gbt@patchfailure{\NAT@citexnum}}
+}
 \renewcommand\NAT@citesuper[3]{\ifNAT@swa
   \if*#2*\else#2\NAT@spacechar\fi
 \unskip\kern\p@\textsuperscript{\NAT@@open#1\NAT@@close\if*#3*\else#3\fi}%
    \else #1\fi\endgroup}
-\patchcmd{\NAT@citex}{%
+\gbt@patchcmd{\NAT@citex}{%
   \if*#2*\else\NAT@cmt#2\fi
   \if\relax\NAT@date\relax\else\NAT@@close\fi
 }{%
   \if\relax\NAT@date\relax\else\NAT@@close\fi
   \if*#2*\else\textsuperscript{#2}\fi
-}{}{\gbt@patchfailure{\NAT@citex}}
+}
 \renewcommand\NAT@cite%
     [3]{\ifNAT@swa\NAT@@open\if*#2*\else#2\NAT@spacechar\fi
         #1\NAT@@close\if*#3*\else\textsuperscript{#3}\fi\else#1\fi\endgroup}
-\patchcmd{\NAT@citexnum}{%
+\gbt@patchcmd{\NAT@citexnum}{%
   \ifx\NAT@last@yr\relax
     \def@NAT@last@yr{\@citea}%
   \else
@@ -111,7 +111,7 @@
   \fi
 }{%
   \def@NAT@last@yr{-\NAT@penalty}%
-}{}{\gbt@patchfailure{\NAT@citexnum}}
+}
 \renewcommand\@biblabel[1]{[#1]\hfill}
 \def\UrlBreaks{%
   \do\/%
